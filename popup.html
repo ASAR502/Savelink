@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Link Saver</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --surface: #fff;
+        --text: #202124;
+        --muted: #5f6368;
+        --field: #fff;
+        --border: #dadce0;
+        --hover: #f1f3f4;
+        --accent: #1a73e8;
+        --accent-hover: #1765cc;
+        --focus: #1a73e8;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --surface: #292a2d;
+          --text: #e8eaed;
+          --muted: #9aa0a6;
+          --field: #202124;
+          --border: #5f6368;
+          --hover: #3c4043;
+          --accent: #8ab4f8;
+          --accent-hover: #aecbfa;
+          --focus: #8ab4f8;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        width: 300px;
+        margin: 0;
+        padding: 12px;
+        background: var(--surface);
+        color: var(--text);
+        border-radius: 12px;
+        font:
+          12px Roboto,
+          "Arial",
+          sans-serif;
+      }
+      [hidden] { display: none !important; }
+      #status.error { color: #b3261e; }
+      @media (prefers-color-scheme: dark) { #status.error { color: #f2b8b5; } }
+      #retry { margin-top: 8px; width: 100%; background: var(--hover); color: var(--text); }
+      h1 {
+        margin: 0 0 10px;
+        font-size: 13px;
+        font-weight: 500;
+      }
+      label {
+        display: block;
+        margin: 10px 0 5px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 500;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 7px 8px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        background: var(--field);
+        color: var(--text);
+        font: inherit;
+        outline: none;
+      }
+      input:focus,
+      textarea:focus {
+        border-color: var(--focus);
+        box-shadow: 0 0 0 1px var(--focus);
+      }
+      textarea {
+        min-height: 52px;
+        resize: vertical;
+      }
+      .file-choice {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+      }
+      .file-actions {
+        display: flex;
+        gap: 6px;
+        flex: 0 0 auto;
+      }
+      button {
+        min-height: 30px;
+        padding: 0 12px;
+        border: 0;
+        border-radius: 4px;
+        background: var(--accent);
+        color: #fff;
+        font: inherit;
+        font-weight: 500;
+        cursor: pointer;
+      }
+      @media (prefers-color-scheme: dark) {
+        button {
+          color: #202124;
+        }
+      }
+      button:hover {
+        background: var(--accent-hover);
+      }
+      button:focus-visible {
+        outline: 2px solid var(--focus);
+        outline-offset: 2px;
+      }
+      button:disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
+      .file-choice button {
+        flex: 0 0 auto;
+        min-height: 28px;
+        padding: 0 9px;
+        background: transparent;
+        color: var(--accent);
+        border: 1px solid var(--border);
+      }
+      .file-choice button:hover {
+        background: var(--hover);
+      }
+      #file-name {
+        width: 100%;
+        min-width: 0;
+        overflow: hidden;
+        color: var(--muted);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      #save {
+        width: 100%;
+        margin-top: 12px;
+      }
+      #status {
+        min-height: 14px;
+        margin: 8px 0 0;
+        overflow-wrap: anywhere;
+        color: var(--muted);
+      }
+      .hint {
+        margin: 7px 0 0;
+        color: var(--muted);
+        font-size: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Save current link</h1>
+    <form id="save-form">
+      <label for="url">Link</label>
+      <input id="url" type="url" required maxlength="32768" autocomplete="off" spellcheck="false" />
+      <label for="description">Description</label>
+      <textarea id="description" maxlength="10000" placeholder="Add a note (optional)"></textarea>
+      <div class="file-choice">
+        <div class="file-actions">
+          <button id="choose-file" type="button">Select PDF</button>
+          <button id="create-file" type="button">New PDF</button>
+        </div>
+        <span id="file-name">No file selected</span>
+      </div>
+      <button id="save" type="submit">Save link</button>
+      <button id="retry" type="button" hidden>Retry previous save</button>
+    </form>
+    <p class="hint">Choose or create a PDF. Saved links stay on this computer.</p>
+    <p id="status" role="status" aria-live="polite"></p>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

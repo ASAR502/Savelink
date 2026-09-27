@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Link Saver",
+  "version": "2.0.0",
+  "minimum_chrome_version": "116",
+  "description": "Save browser links in a readable PDF on your computer.",
+  "permissions": ["activeTab", "storage"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "icons": {
+    "16": "icons/link-saver-16.png",
+    "32": "icons/link-saver-32.png",
+    "48": "icons/link-saver-48.png",
+    "128": "icons/link-saver-128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/link-saver-16.png",
+      "32": "icons/link-saver-32.png"
+    }
+  }
+}
