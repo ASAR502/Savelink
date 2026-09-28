@@ -115,7 +115,7 @@ async function chooseFile(mode) {
   try {
     if (!window.showOpenFilePicker || !window.showSaveFilePicker)
       throw new Error(
-        "Use a current desktop version of Chrome to select a PDF.",
+        "Use a current desktop Chromium browser to select a PDF.",
       );
     // Keep native pickers in a durable window and before any storage awaits.
     if (mode === "existing") {
